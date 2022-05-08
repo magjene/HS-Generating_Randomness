@@ -39,5 +39,6 @@ Final data string:
 
 general_string = ''
 while len(general_string) < 100:
-    st = input('Print a random string containing 0 or 1:\n')
-    print(f'Current data length is {len(st)}, {100 - len(st)} symbols left')
+    st = input('Print a random string containing 0 or 1:\n\n')
+    general_string += st
+    print(f'Current data length is {len(st)}, {100 - len(general_string)} symbols left')
