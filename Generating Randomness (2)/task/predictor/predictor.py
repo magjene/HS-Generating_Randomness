@@ -40,8 +40,8 @@ Final data string:
 general_string = ''
 while len(general_string) < 100:
     st = input('Print a random string containing 0 or 1:\n\n')
-    for num in list(st):
-        if num == '0' or num == '1':
+    for num in st:
+        if num in ('0', '1'):
             general_string += num
     print(f'Current data length is {len(st)}, {100 - len(general_string)} symbols left')
 print('\nFinal data string:')
