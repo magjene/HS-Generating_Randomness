@@ -42,6 +42,6 @@ while len(general_string) < 100:
     st = input('Print a random string containing 0 or 1:\n\n')
     for num in st.split():
         if num == '0' or num == '1':
-            general_string += st
+            general_string += num
     print(f'Current data length is {len(st)}, {100 - len(general_string)} symbols left')
 print(general_string)
