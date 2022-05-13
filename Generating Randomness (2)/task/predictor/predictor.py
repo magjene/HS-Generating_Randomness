@@ -1,48 +1,45 @@
 """
-Stage 2/4: Analyzing user input
+Stage 3/4: Predicting future input
 Description
-Now it's time to reveal the secret of our magical predictive system. We will create a "profile" of the user that will contain information about patterns found in their "random" clicks. To do this, we will count how many times a certain character (0 or 1) follows a specific triad of numbers (for example, 000 or 011). For example, in the string "00010000", the triad "000" is followed once by a "0" and once by "1".
+Now we will start predicting the next symbol of the user input. You will be surprised how often people repeat the same patterns!
 
-In the next stage, we will create a prediction algorithm based on this information.
+Imagine the following: after the second stage for a string 0101010100101001010101000111101010010101010010101010101 we have calculated the amount of a certain character (0 or 1) that follows a specific triad of numbers: '000': [0, 1], '001': [4, 1], '010': [5, 16], '011': [0, 1], '100': [1, 4], '101': [16, 0], '110': [0, 1], '111': [1, 1]. Now, the user enters the sequence 001110. How can we foresee the next numbers?
+
+Starting with the 4th character, we can predict the input based on the triads obtained in the previous stage. We've learned that the combination "001" (the first three characters) was followed by a "0" in 4 cases out of 5. So, the estimated probability that the user will enter "0" as the fourth character is 4/5 = 80%. For "1" probability is 1/5 = 20%. Therefore, we predict "0'" as the fourth character. Unfortunately, we didn't guess but let's go further. In the same way, the 5th character is more likely to be "1" relying on statistics for the triad preceding it ("011"). This time we are right. In this stage, you're invited to write a program, which will sequentially scan three characters of the user's sequence at a time and make a prediction of what goes next.
+
+And what about the first three characters? Generate a sequence of three binary numbers, and that's it. Based on this triple, make predictions for further symbols.
 
 Objectives
 In this stage, your program should:
 
-Read the user input the same way it did in the previous stage.
-Output the result in the following format: triad: counts of 0, counts of 1, for example, 000: 57,12. The result for each triad should be printed on a new line. The triads must be ordered in ascending order of their decimal representation (for example, 110 in binary = 1*4+1*2+0*1 = 6 in decimal).
-Hint
-
-How many different triads are there? There are three vacant seats: _ _ _. Two options (0 or 1) for the first seat, then two options for the second seat and so on. In the case of the same number of options at each seat, the number of unique sequences can be calculated as follows:
-\text {number of options} ^ {\text {number of seats}}
-number of options
-number of seats
-
+Take and preprocess user input as described in stage 1.
+Calculate user statistics using triads as described in stage 2 (but don't output the statistics this time).
+Ask the user to enter another test string of 0's and 1's, which we will try to predict, and preprocess the new input.
+Going through the string entered by the user, estimate the frequency of occurrence of "0" or "1" after each triad and generate predictions: if the count of 0's after the current triad is higher, the program should predict "0", otherwise, predict "1". If the counts are equal, the choice can be made in a random way.
+The first three symbols may be predicted by chance one by one using the random module. You can also invent your own algorithm here, for instance, make use of the overall frequencies of 0's and 1's in the user input. In the output, print your prediction right after the user's test string.
+Test the accuracy of our predictor (excluding the first 3 randomly predicted symbols) by comparing the real input and the prediction. As the final output, print the line Computer guessed right N out of M symbols (ACC%), where N is the number of correctly guessed symbols, M is the total length of the test input, and ACC is the accuracy value with 0.01% precision. Remember to exclude the first 3 symbols from the calculation!
 Example
 The greater-than symbol followed by a space (> ) represents the user input. Note that it's not part of the input.
 
 Print a random string containing 0 or 1:
 
-> 01010010010001010100100101001001
-The current data length is 32, 68 symbols left
+> 0101001010010101011111100010010110000101010101010100101
+The current data length is 55, 45 symbols left
 Print a random string containing 0 or 1:
 
-> 10100011001010101010111101001001011010
-The current data length is 70, 30 symbols left
-Print a random string containing 0 or 1:
-
-> 0101101010100110101010101010001110011
+> 01010101001010010101010001111001010010101010010101010101
 
 Final data string:
-01010010010001010100100101001001101000110010101010101111010010010110100101101010100110101010101010001110011
+010100101001010101111110001001011000010101010101010010101010101001010010101010001111001010010101010010101010101
 
-000: 0,3
-001: 10,5
-010: 13,18
-011: 5,2
-100: 3,12
-101: 20,3
-110: 2,5
-111: 2,1
+
+Please enter a test string containing 0 or 1:
+
+0110001010100101
+prediction:
+1101011010101101
+
+Computer guessed right 10 out of 13 symbols (76.92 %)
 """
 
 
@@ -66,6 +63,4 @@ for i in range(len(general_string)-3):
     else:
         dict_triad[triad][1] += 1
 
-print()
-for key, val in dict_triad.items():
-    print(f'{key}: {val[0]},{val[1]}')
+input('\nPlease enter a test string containing 0 or 1:\n\n')
