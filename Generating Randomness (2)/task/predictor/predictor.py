@@ -55,8 +55,6 @@ while len(general_string) < 100:
 print('\nFinal data string:')
 print(general_string)
 
-general_string = '01010010010001010100100101001001101000110010101010101111010010010110100101101010100110101010101010001110011'
-
 dict_triad = {'000': [0, 0], '001': [0, 0], '010': [0, 0], '011': [0, 0],
               '100': [0, 0], '101': [0, 0], '110': [0, 0], '111': [0, 0]}
 
@@ -68,4 +66,6 @@ for i in range(len(general_string)-3):
     else:
         dict_triad[triad][1] += 1
 
-print(dict_triad)
+print()
+for key, val in dict_triad.items():
+    print(f'{key}: {val[0]},{val[1]}')
