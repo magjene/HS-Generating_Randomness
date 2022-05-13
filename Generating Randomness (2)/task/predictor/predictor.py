@@ -54,3 +54,6 @@ while len(general_string) < 100:
     print(f'Current data length is {len(current_string)}, {100 - len(general_string)} symbols left')
 print('\nFinal data string:')
 print(general_string)
+
+dict_triad = {'000': [0, 0], '001': [0, 0], '010': [0, 0], '011': [0, 0],
+              '100': [0, 0], '101': [0, 0], '110': [0, 0], '111': [0, 0]}
