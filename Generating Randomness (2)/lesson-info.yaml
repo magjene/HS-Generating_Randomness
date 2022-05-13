@@ -1,8 +1,7 @@
 type: framework
-custom_name: Generating Randomness
 content:
 - Input processing
 - Analyzing user input
 - Predicting future input
 - ”Generate randomness” game
-current_task: 1
+current_task: 2
