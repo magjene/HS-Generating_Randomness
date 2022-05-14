@@ -57,6 +57,7 @@ Game over!
 """
 
 
+print('Please give AI some data to learn...')
 general_string = ''
 while len(general_string) < 100:
     st = input('Print a random string containing 0 or 1:\n\n')
