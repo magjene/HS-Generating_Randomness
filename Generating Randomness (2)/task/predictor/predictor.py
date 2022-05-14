@@ -104,6 +104,7 @@ while balance > 0:
         if real_str[i+3] == predict_number:
             predict_true += 1
     len_real_str = len(real_str) - 3
+    balance += len_real_str - predict_true * 2
     print('prediction:')
     print(prediction + '\n')
     print(f'Computer guessed right {predict_true} out of {len_real_str} symbols '
