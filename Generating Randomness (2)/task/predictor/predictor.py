@@ -43,8 +43,6 @@ Computer guessed right 10 out of 13 symbols (76.92 %)
 """
 
 
-from random import randint
-
 general_string = ''
 while len(general_string) < 100:
     st = input('Print a random string containing 0 or 1:\n\n')
@@ -70,21 +68,13 @@ prediction = '000'
 predict_true = 0
 for i in range(len(real_str)-3):
     triad = real_str[i:i+3]
-    number = real_str[i+3]
     predict_number0, predict_number1 = dict_triad[triad]
     predict_number = '0' if predict_number0 > predict_number1 else '1'
     prediction += predict_number
-    if number == predict_number:
+    if real_str[i+3] == predict_number:
         predict_true += 1
-len_real_str = len(real_str)-3
+len_real_str = len(real_str) - 3
 print('prediction:')
-print(prediction)
-print()
+print(prediction + '\n')
 print(f'Computer guessed right {predict_true} out of {len_real_str} symbols '
       f'({round(predict_true / len_real_str * 100, 2)} %)')
-
-'''
-0101001010010101011111100010010110000101010101010100101
-01010101001010010101010001111001010010101010010101010101
-0110001010100101
-'''

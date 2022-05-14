@@ -179,5 +179,8 @@ files:
         GenRandTest('predictor.predictor').run_tests()
   learner_created: false
 feedback_link: https://hyperskill.org/projects/156/stages/815/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Sat, 14 May 2022 08:06:16 UTC
 record: -1
