@@ -58,38 +58,48 @@ Game over!
 
 
 print('Please give AI some data to learn...')
-general_string = ''
-while len(general_string) < 100:
+final_string = ''
+current_string = []
+while len(final_string) < 100:
+    print(f'The current data length is {len(current_string)}, {100 - len(final_string)} symbols left')
     st = input('Print a random string containing 0 or 1:\n\n')
     current_string = [num for num in st if num in '01']
-    general_string += ''.join(current_string)
-    print(f'Current data length is {len(current_string)}, {100 - len(general_string)} symbols left')
+    final_string += ''.join(current_string)
 print('\nFinal data string:')
-print(general_string)
+print(final_string)
 
 dict_triad = {'000': [0, 0], '001': [0, 0], '010': [0, 0], '011': [0, 0],
               '100': [0, 0], '101': [0, 0], '110': [0, 0], '111': [0, 0]}
 
-for i in range(len(general_string)-3):
-    triad = general_string[i:i+3]
-    number = general_string[i+3]
+for i in range(len(final_string) - 3):
+    triad = final_string[i:i + 3]
+    number = final_string[i + 3]
     if number == '0':
         dict_triad[triad][0] += 1
     else:
         dict_triad[triad][1] += 1
 
-real_str = input('\nPlease enter a test string containing 0 or 1:\n\n')
-prediction = '000'
-predict_true = 0
-for i in range(len(real_str)-3):
-    triad = real_str[i:i+3]
-    predict_number0, predict_number1 = dict_triad[triad]
-    predict_number = '0' if predict_number0 > predict_number1 else '1'
-    prediction += predict_number
-    if real_str[i+3] == predict_number:
-        predict_true += 1
-len_real_str = len(real_str) - 3
-print('prediction:')
-print(prediction + '\n')
-print(f'Computer guessed right {predict_true} out of {len_real_str} symbols '
-      f'({round(predict_true / len_real_str * 100, 2)} %)')
+balance = 1000
+print()
+print(f'You have ${balance}. Every time the system successfully predicts your next press, you lose $1.')
+print('Otherwise, you earn $1. Print "enough" to leave the game. Let\'s go!')
+while balance > 0:
+    real_str = input('\nPrint a random string containing 0 or 1:\n')
+    if real_str == 'enough':
+        break
+    prediction = '000'
+    predict_true = 0
+    for i in range(len(real_str)-3):
+        triad = real_str[i:i+3]
+        predict_number0, predict_number1 = dict_triad[triad]
+        predict_number = '0' if predict_number0 > predict_number1 else '1'
+        prediction += predict_number
+        if real_str[i+3] == predict_number:
+            predict_true += 1
+    len_real_str = len(real_str) - 3
+    print('prediction:')
+    print(prediction + '\n')
+    print(f'Computer guessed right {predict_true} out of {len_real_str} symbols '
+          f'({round(predict_true / len_real_str * 100, 2)} %)')
+    print(f'Your balance is now ${balance}')
+print('Game over!')
