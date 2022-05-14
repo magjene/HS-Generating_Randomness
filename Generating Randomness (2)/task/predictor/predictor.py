@@ -84,7 +84,14 @@ print()
 print(f'You have ${balance}. Every time the system successfully predicts your next press, you lose $1.')
 print('Otherwise, you earn $1. Print "enough" to leave the game. Let\'s go!')
 while balance > 0:
-    real_str = input('\nPrint a random string containing 0 or 1:\n')
+    while True:
+        real_str = input('\nPrint a random string containing 0 or 1:\n')
+        if real_str == 'enough':
+            break
+        current_string = [num for num in real_str if num in '01']
+        real_str = ''.join(current_string)
+        if len(real_str) > 3:
+            break
     if real_str == 'enough':
         break
     prediction = '000'
