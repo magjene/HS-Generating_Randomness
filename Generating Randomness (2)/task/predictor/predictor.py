@@ -1,45 +1,59 @@
 """
-Stage 3/4: Predicting future input
+Stage 4/4: ”Generate randomness” game
 Description
-Now we will start predicting the next symbol of the user input. You will be surprised how often people repeat the same patterns!
-
-Imagine the following: after the second stage for a string 0101010100101001010101000111101010010101010010101010101 we have calculated the amount of a certain character (0 or 1) that follows a specific triad of numbers: '000': [0, 1], '001': [4, 1], '010': [5, 16], '011': [0, 1], '100': [1, 4], '101': [16, 0], '110': [0, 1], '111': [1, 1]. Now, the user enters the sequence 001110. How can we foresee the next numbers?
-
-Starting with the 4th character, we can predict the input based on the triads obtained in the previous stage. We've learned that the combination "001" (the first three characters) was followed by a "0" in 4 cases out of 5. So, the estimated probability that the user will enter "0" as the fourth character is 4/5 = 80%. For "1" probability is 1/5 = 20%. Therefore, we predict "0'" as the fourth character. Unfortunately, we didn't guess but let's go further. In the same way, the 5th character is more likely to be "1" relying on statistics for the triad preceding it ("011"). This time we are right. In this stage, you're invited to write a program, which will sequentially scan three characters of the user's sequence at a time and make a prediction of what goes next.
-
-And what about the first three characters? Generate a sequence of three binary numbers, and that's it. Based on this triple, make predictions for further symbols.
+In the final stage, we will gather all our components to construct a game where you will try to beat the system created by your hands. Initially, the player has a virtual balance of $1000. Every time the computer guesses a symbol correctly, the player loses one dollar. Every time the system is wrong, the player gets one dollar.
 
 Objectives
-In this stage, your program should:
+In this final stage, your program should:
 
-Take and preprocess user input as described in stage 1.
-Calculate user statistics using triads as described in stage 2 (but don't output the statistics this time).
-Ask the user to enter another test string of 0's and 1's, which we will try to predict, and preprocess the new input.
-Going through the string entered by the user, estimate the frequency of occurrence of "0" or "1" after each triad and generate predictions: if the count of 0's after the current triad is higher, the program should predict "0", otherwise, predict "1". If the counts are equal, the choice can be made in a random way.
-The first three symbols may be predicted by chance one by one using the random module. You can also invent your own algorithm here, for instance, make use of the overall frequencies of 0's and 1's in the user input. In the output, print your prediction right after the user's test string.
-Test the accuracy of our predictor (excluding the first 3 randomly predicted symbols) by comparing the real input and the prediction. As the final output, print the line Computer guessed right N out of M symbols (ACC%), where N is the number of correctly guessed symbols, M is the total length of the test input, and ACC is the accuracy value with 0.01% precision. Remember to exclude the first 3 symbols from the calculation!
+Get and preprocess user input just like in stage 1.
+Learn user patterns by collecting triad statistics like in stage 2.
+Ask the user to enter test strings or type enough to exit the game. Each test string must be preprocessed (in order to leave only "0" and "1" symbols). After that, you should launch the prediction algorithm and calculate the number of correctly guessed symbols. After each iteration, you should show the player's balance with the message Your balance is now $X, where X is the player's virtual balance. Since the first three symbols are guessed by chance, don't consider them when calculating the balance.
+It would be great if you kept updating the system by allowing it to learn from the test data as well. However, this update should happen only after the prediction and the verification stages are done: let's be honest with the user.
+Finish the game with the words Game over!.
+Before implementing the solution, examine the example carefully. The output of your program should provide instructions and feedback in the same format.
+
 Example
 The greater-than symbol followed by a space (> ) represents the user input. Note that it's not part of the input.
 
+Please give AI some data to learn...
+The current data length is 0, 100 symbols left
 Print a random string containing 0 or 1:
 
-> 0101001010010101011111100010010110000101010101010100101
-The current data length is 55, 45 symbols left
+> 010100100101010101000010001010101010100100100101001
+The current data length is 51, 49 symbols left
 Print a random string containing 0 or 1:
 
-> 01010101001010010101010001111001010010101010010101010101
+> 011010001011111100101010100011001010101010010001001010010011
 
 Final data string:
-010100101001010101111110001001011000010101010101010010101010101001010010101010001111001010010101010010101010101
+010100100101010101000010001010101010100100100101001011010001011111100101010100011001010101010010001001010010011
 
+You have $1000. Every time the system successfully predicts your next press, you lose $1.
+Otherwise, you earn $1. Print "enough" to leave the game. Let's go!
 
-Please enter a test string containing 0 or 1:
-
-0110001010100101
+Print a random string containing 0 or 1:
+> 0111001001
 prediction:
-1101011010101101
+1000101011
 
-Computer guessed right 10 out of 13 symbols (76.92 %)
+Computer guessed right 4 out of 7 symbols (57.14 %)
+Your balance is now $999
+
+Print a random string containing 0 or 1:
+> some wrong input
+
+Print a random string containing 0 or 1:
+> 0101001001
+prediction:
+0001011011
+
+Computer guessed right 5 out of 7 symbols (71.43 %)
+Your balance is now $996
+
+Print a random string containing 0 or 1:
+> enough
+Game over!
 """
 
 
